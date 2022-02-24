@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { Logo } from "../assets/icons";
 
 const AuthLayout = (props) => {
-    const { children, toggleAuthView } = props;
+    const { children, isSignUpView, toggleAuthView } = props;
 
     return (
         <div style={{ backgroundColor: "rgb(247, 250, 252)" }}>
@@ -37,20 +37,32 @@ const AuthLayout = (props) => {
                                     md: "sm",
                                 })}
                             >
-                                Log in to your account
+                                Image Editor
                             </Heading>
-                            <HStack spacing="1" justify="center">
-                                <Text color="muted">
-                                    Don&apos;t have an account?
-                                </Text>
-                                <Button
-                                    variant="link"
-                                    colorScheme="blue"
-                                    onClick={toggleAuthView}
-                                >
-                                    Sign up
-                                </Button>
-                            </HStack>
+                            {isSignUpView ? (
+                                <HStack spacing="1" justify="center">
+                                    <Button
+                                        variant="link"
+                                        colorScheme="blue"
+                                        onClick={toggleAuthView}
+                                    >
+                                        Back to Login
+                                    </Button>
+                                </HStack>
+                            ) : (
+                                <HStack spacing="1" justify="center">
+                                    <Text color="muted">
+                                        Don&apos;t have an account?
+                                    </Text>
+                                    <Button
+                                        variant="link"
+                                        colorScheme="blue"
+                                        onClick={toggleAuthView}
+                                    >
+                                        Sign up
+                                    </Button>
+                                </HStack>
+                            )}
                         </Stack>
                     </Stack>
                     <Box
@@ -75,7 +87,8 @@ const AuthLayout = (props) => {
 };
 
 AuthLayout.propTypes = {
-    chidlren: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
+    isSignUpView: PropTypes.bool.isRequired,
     toggleAuthView: PropTypes.func.isRequired,
 };
 

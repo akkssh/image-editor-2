@@ -16,7 +16,9 @@ import {
     Stack,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { withRouter } from "react-router-dom";
 
+import SupabaseService from "../services/supabase.service";
 import { Logo } from "../assets/icons";
 
 const Links = ["Dashboard", "Projects", "Team"];
@@ -37,8 +39,20 @@ const NavLink = ({ children }) => (
 );
 
 const DashboardLayout = (props) => {
-    const { children } = props;
+    const { children, history } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const handleLogout = (event) => {
+        event && event.preventDefault && event.preventDefault();
+        SupabaseService.logoutUser().then(
+            (res) => {
+                history.push("auth");
+            },
+            (err) => {
+                console.log({ err });
+            }
+        );
+    };
 
     return (
         <>
@@ -86,7 +100,9 @@ const DashboardLayout = (props) => {
                             <MenuList>
                                 {/* <MenuItem>Profile</MenuItem>
                                 <MenuDivider /> */}
-                                <MenuItem>Logout</MenuItem>
+                                <MenuItem onClick={handleLogout}>
+                                    Logout
+                                </MenuItem>
                             </MenuList>
                         </Menu>
                     </Flex>
@@ -108,4 +124,4 @@ const DashboardLayout = (props) => {
     );
 };
 
-export default DashboardLayout;
+export default withRouter(DashboardLayout);
