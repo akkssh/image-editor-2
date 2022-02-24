@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 
 import SignInView from "./SignIn.view";
 import SupabaseService from "../../services/supabase.service";
-import AuthTokenService from "../../services/authToken.service";
 
 class SignIn extends Component {
     constructor(props) {
