@@ -31,8 +31,14 @@ class Dashboard extends Component {
     };
 
     addNewImage = (file) => {
-        console.log({ file });
-        SupabaseService.uploadImage(file);
+        SupabaseService.uploadImage(file).then(
+            (res) => {
+                this.getImages();
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
     };
 
     render() {
