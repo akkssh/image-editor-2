@@ -35,7 +35,7 @@ class _SuperbaseService {
   };
 
   getImages = () => {
-    return this.supabase.from("images").select();
+    return this.supabase.from("images").select().match({ user: this.user.id });
   };
 
   uploadImage = (file) => {

@@ -31,11 +31,14 @@ class Dashboard extends Component {
     };
 
     addNewImage = (file) => {
+        this.setState({ isImageUploading: true });
         SupabaseService.uploadImage(file).then(
-            (res) => {
+            () => {
+                this.setState({ isImageUploading: false });
                 this.getImages();
             },
             (err) => {
+                this.setState({ isImageUploading: false });
                 console.log(err);
             }
         );

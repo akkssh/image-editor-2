@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import { IconButton } from "@chakra-ui/react";
+import { Box, IconButton } from "@chakra-ui/react";
 
 import { UploadIcon } from "../assets/icons";
 
@@ -14,11 +14,12 @@ const UploadButton = (props) => {
     };
 
     return (
-        <div>
+        <Box mr="4">
             <IconButton
+                size="sm"
                 isLoading={isLoading}
                 colorScheme="blue"
-                aria-label="Search database"
+                aria-label="Upload Image"
                 icon={<UploadIcon />}
                 onClick={() => fileRef.current.click()}
             />
@@ -29,7 +30,7 @@ const UploadButton = (props) => {
                 type="file"
                 hidden
             />
-        </div>
+        </Box>
     );
 };
 

@@ -74,10 +74,10 @@ const DashboardLayout = (props) => {
                     <HStack spacing={8} alignItems={"center"}>
                         <HStack
                             as={"nav"}
-                            spacing={4}
+                            spacing={1}
                             display={{ base: "none", md: "flex" }}
                         >
-                            <Logo boxSize="6" />
+                            <Logo boxSize="6" color="blue.400" />
                             <Heading
                                 align="center"
                                 py="24px"
@@ -104,8 +104,6 @@ const DashboardLayout = (props) => {
                                 <Avatar size={"sm"} />
                             </MenuButton>
                             <MenuList>
-                                {/* <MenuItem>Profile</MenuItem>
-                                <MenuDivider /> */}
                                 <MenuItem onClick={handleLogout}>
                                     Logout
                                 </MenuItem>

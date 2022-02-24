@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import { Box, useColorModeValue } from "@chakra-ui/react";
 
-const Card = ({ hideCardTitle, children, ...others }) => {
+const Card = ({ children, onClick, ...others }) => {
     return (
         <Box
             {...others}
@@ -15,23 +15,19 @@ const Card = ({ hideCardTitle, children, ...others }) => {
             rounded={"lg"}
             p={1}
             textAlign={"center"}
+            cursor="pointer"
+            onClick={onClick}
         >
-            {/* {!hideCardTitle && (
-                <Heading fontSize="xl" fontFamily="body" textAlign="left">
-                    Card Title
-                </Heading>
-            )} */}
             <Box>{children}</Box>
         </Box>
     );
 };
 
 Card.propTypes = {
-    hideCardTitle: PropTypes.bool,
     children: PropTypes.node,
+    onClick: PropTypes.func.isRequired,
 };
 Card.defaultProps = {
-    hideCardTitle: false,
     children: null,
 };
 
