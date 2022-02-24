@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
     Box,
     Flex,
@@ -18,6 +19,7 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { withRouter } from "react-router-dom";
 
+import { UploadButton } from "../components";
 import SupabaseService from "../services/supabase.service";
 import { Logo } from "../assets/icons";
 
@@ -39,7 +41,7 @@ const NavLink = ({ children }) => (
 );
 
 const DashboardLayout = (props) => {
-    const { children, history } = props;
+    const { children, history, isImageLoading, onImageUpload } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const handleLogout = (event) => {
@@ -87,6 +89,10 @@ const DashboardLayout = (props) => {
                         </HStack>
                     </HStack>
                     <Flex alignItems={"center"}>
+                        <UploadButton
+                            isLoading={isImageLoading}
+                            onImageUpload={onImageUpload}
+                        />
                         <Menu>
                             <MenuButton
                                 as={Button}
@@ -122,6 +128,11 @@ const DashboardLayout = (props) => {
             <Box p={4}>{children}</Box>
         </>
     );
+};
+
+DashboardLayout.propTypes = {
+    isImageLoading: PropTypes.bool.isRequired,
+    onImageUpload: PropTypes.func.isRequired,
 };
 
 export default withRouter(DashboardLayout);

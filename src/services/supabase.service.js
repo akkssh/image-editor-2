@@ -2,12 +2,12 @@ import { createClient } from "@supabase/supabase-js";
 
 // Create a single supabase client for interacting with your database
 const SUPABASE_URL = "https://yxjlaypqpeianxlzgvaq.supabase.co";
-const SUPABASE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4amxheXBxcGVpYW54bHpndmFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDUzNzg3MDYsImV4cCI6MTk2MDk1NDcwNn0._9RARzH2rOcRAZAvG8rezuPhFPmqLOPeqXsR-C17rBc";
+const SUPABASE_KEY = process.env.REACT_APP_SERVICE_KEY;
 
 class _SuperbaseService {
   constructor() {
     this.supabase = null;
+    console.log({ env: process.env });
   }
 
   initialize = async () => {
@@ -29,6 +29,24 @@ class _SuperbaseService {
 
   getSession = () => {
     return this.supabase && this.supabase.auth.session();
+  };
+
+  getImages = () => {
+    return this.supabase.from("images").select();
+  };
+
+  uploadImage = (file) => {
+    this.supabase.storage
+      .from("images")
+      .upload(file.name, file)
+      .then(
+        (res) => {
+          console.log({ res });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   };
 }
 

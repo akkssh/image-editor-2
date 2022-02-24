@@ -1,21 +1,38 @@
-import { Heading, Box, useColorModeValue } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
-const Card = () => {
+import { Box, useColorModeValue } from "@chakra-ui/react";
+
+const Card = ({ hideCardTitle, children, ...others }) => {
     return (
         <Box
-            maxW={"320px"}
+            {...others}
+            maxW={"250px"}
             w={"full"}
+            h="250px"
+            m="4"
             bg={useColorModeValue("white", "gray.900")}
-            boxShadow={"2xl"}
+            boxShadow={"lg"}
             rounded={"lg"}
-            p={6}
+            p={1}
             textAlign={"center"}
         >
-            <Heading fontSize="xl" fontFamily="body" textAlign="left">
-                Card Title
-            </Heading>
+            {/* {!hideCardTitle && (
+                <Heading fontSize="xl" fontFamily="body" textAlign="left">
+                    Card Title
+                </Heading>
+            )} */}
+            <Box>{children}</Box>
         </Box>
     );
+};
+
+Card.propTypes = {
+    hideCardTitle: PropTypes.bool,
+    children: PropTypes.node,
+};
+Card.defaultProps = {
+    hideCardTitle: false,
+    children: null,
 };
 
 export default Card;

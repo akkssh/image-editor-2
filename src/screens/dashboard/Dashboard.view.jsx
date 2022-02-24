@@ -1,15 +1,19 @@
 import React from "react";
 
-import { Flex } from "@chakra-ui/react";
+import { Flex, Image } from "@chakra-ui/react";
 
 import { Card } from "../../components";
 
-const DashbaordView = () => {
+const DashbaordView = (props) => {
+    const { images } = props;
+
     return (
         <Flex>
-            <Card />
-            <Card />
-            <Card />
+            {images.map((image) => (
+                <Card key={image.id}>
+                    <Image src={image.url} alt="Dan Abramov" rounded={"lg"} />
+                </Card>
+            ))}
         </Flex>
     );
 };
