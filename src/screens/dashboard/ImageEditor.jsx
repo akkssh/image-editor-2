@@ -34,19 +34,15 @@ const ImageEditor = ({ url }) => {
             pixels[i + 1] = lightness;
             pixels[i + 2] = lightness;
         }
-        console.log({ pixels });
-        // imageRef.current.onload = () => {
-        //     context.putImageData(imgData, 0, 0);
-        // };
         context.putImageData(imgData, 0, 0);
     };
 
-    useEffect(() => {
+    const loadImageIntoCanvas = () => {
         const context = canvasRef.current.getContext("2d");
 
         const image = new Image();
+        image.crossOrigin = "Anonymous";
         image.src = url;
-        image.crossOrigin = "*";
         image.onload = () => {
             context.drawImage(
                 image,
@@ -56,7 +52,20 @@ const ImageEditor = ({ url }) => {
                 canvasRef.current.height
             );
         };
-    }, [url]);
+    };
+
+    const handleToggle = (event) => {
+        event && event.preventDefault();
+        if (event.target.checked) {
+            makeGrayScale();
+        } else {
+            loadImageIntoCanvas();
+        }
+    };
+
+    useEffect(() => {
+        loadImageIntoCanvas();
+    });
 
     return (
         <Box>
@@ -74,7 +83,7 @@ const ImageEditor = ({ url }) => {
                 <FormLabel htmlFor="greyscale" mb="0">
                     Convert to Greyscale
                 </FormLabel>
-                <Switch id="greyscale" onChange={() => makeGrayScale()} />
+                <Switch id="greyscale" onChange={handleToggle} />
             </FormControl>
         </Box>
     );
